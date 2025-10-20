@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Promet Hotelería · Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <img src="assets/logo_promet.png" alt="Promet Hotelería" />
+    <h3>Onboarding & Inducción</h3>
+  </header>
+  <div class="container">
+    <div class="card">
+      <h2>Acceso por token</h2>
+      <p>Ingresa el token que recibiste por correo para acceder a tu vista.</p>
+      <form id="loginForm" class="grid cols-2">
+        <label>Token
+          <input id="token" class="input" placeholder="pega aquí tu token" required />
+        </label>
+        <div style="display:flex; align-items:end;">
+          <button class="btn" type="submit">Ingresar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h3>Configurar URL del Backend</h3>
+      <p>https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhbqX7vBBmH6O8b1UFTsHEMia_-mG1W5TLaq3g1lfAPcEwOn1pRQDQE7zXO1t5zP-D8xTtIkg3g3xOgs2jnSWr7T42_ditwQYosjJPk1TU59cL2wh_sLduoj4zWDMaUJmL0gmsjBTkfaGn8dnQLmsp9p3AubwU270R0WMKuRlQeXBxu2P8eGfriiMkk3LzQ4wbp7qSpAerlfUmpL0UM5ECKEvGi6ImSf9Z41v1YY3y-EsiJMNhrhKAw_rW2euvkL1XL9bYJ0CrnwBo4b2nwXn_7j01HU_vxtP0eKicF&lib=MS4R8hTbg8CXIe_5yWxbWwwE7720VmoJT.?route=</p>
+      <div class="grid cols-3">
+        <input id="backendUrl" class="input" placeholder="https://script.google.com/macros/s/AKfyc.../exec" />
+        <button class="btn" onclick="Promet.setBaseURL(document.getElementById('backendUrl').value)">Guardar URL</button>
+        <button class="btn ghost" onclick="alert(localStorage.getItem('GAS_BASE_URL')||'No configurado')">Ver URL actual</button>
+      </div>
+    </div>
+  </div>
+  <footer>© Promet Hotelería</footer>
+  <script src="app.js"></script>
+  <script>Promet.handleLogin(document.getElementById('loginForm'));</script>
+</body>
+</html>

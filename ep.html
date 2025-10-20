@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Encargado de Personas · Promet Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <img src="assets/logo_promet.png" alt="Promet" />
+  <h3>Encargado de Personas</h3>
+</header>
+<div class="container">
+  <div class="card">
+    <h3>Crear cohorte</h3>
+    <form id="epCreate" class="grid cols-3">
+      <label>Hotel
+        <select id="hotel" class="input" required>
+          <option>Coya</option><option>Mejillones</option><option>Calama</option><option>Colbún</option><option>Fidelia</option><option>Engie</option>
+        </select>
+      </label>
+      <label>Fecha de ingreso
+        <input id="fecha_ingreso" type="date" class="input" required />
+      </label>
+      <label>EP Nombre
+        <input id="ep_nombre" class="input" required />
+      </label>
+      <label>EP Correo
+        <input id="ep_email" type="email" class="input" required />
+      </label>
+      <label>Relator Día 1
+        <input id="relator1" class="input" required placeholder="Nombre" />
+      </label>
+      <label>Correo Relator Día 1
+        <input id="relator1_mail" type="email" class="input" required />
+      </label>
+      <label>Relator Día 2
+        <input id="relator2" class="input" required />
+      </label>
+      <label>Correo Relator Día 2
+        <input id="relator2_mail" type="email" class="input" required />
+      </label>
+      <label>Relator Día 3
+        <input id="relator3" class="input" required />
+      </label>
+      <label>Correo Relator Día 3
+        <input id="relator3_mail" type="email" class="input" required />
+      </label>
+      <label>Relator Día 4 (Mucama/Aux. Aseo)
+        <input id="relator4" class="input" />
+      </label>
+      <label>Correo Relator Día 4
+        <input id="relator4_mail" type="email" class="input" />
+      </label>
+      <label style="grid-column:1/-1;">Participantes (CSV; una persona por línea):<br>
+        <small>Formato: nombre,apellido,cargo,telefono,email,requiere_mod4(SI/NO),rut,jefe_directo</small>
+        <textarea id="participants_csv" class="input" rows="6" required></textarea>
+      </label>
+      <div style="grid-column:1/-1; display:flex; gap:8px; align-items:center;">
+        <button class="btn" type="submit">Crear cohorte</button>
+        <span>Cohorte ID: <strong id="cohort_id">—</strong></span>
+      </div>
+    </form>
+  </div>
+</div>
+<footer>© Promet Hotelería</footer>
+<script src="app.js"></script>
+<script>Promet.epCreateCohort(document.getElementById('epCreate'));</script>
+</body>
+</html>

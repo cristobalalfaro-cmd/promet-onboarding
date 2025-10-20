@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Champion · Promet Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <img src="assets/logo_promet.png" alt="Promet" />
+  <h3>Champion (Mucama/Aux. Aseo)</h3>
+</header>
+<div class="container">
+  <div class="card">
+    <h3>Rúbrica de competencias</h3>
+    <p>Selecciona participante y registra evaluación.</p>
+    <div class="grid cols-3">
+      <label>Participante
+        <select id="sel_part" class="input"></select>
+      </label>
+      <label>Procedimientos (1-5)<input id="c_proc" type="number" min="1" max="5" class="input"/></label>
+      <label>Orden y aseo (1-5)<input id="c_orden" type="number" min="1" max="5" class="input"/></label>
+      <label>Seguridad (1-5)<input id="c_seg" type="number" min="1" max="5" class="input"/></label>
+      <label>Ritmo (1-5)<input id="c_ritmo" type="number" min="1" max="5" class="input"/></label>
+      <label>Estándar habitación (1-5)<input id="c_std" type="number" min="1" max="5" class="input"/></label>
+      <label>Trato y respeto (1-5)<input id="c_trato" type="number" min="1" max="5" class="input"/></label>
+      <label style="grid-column:1/-1;">Comentario
+        <input id="c_com" class="input" />
+      </label>
+      <label>Apto
+        <select id="c_apto" class="input"><option>SI</option><option>NO</option></select>
+      </label>
+      <div style="display:flex; align-items:end;">
+        <button class="btn" onclick="alert('En demo: conectar /competency/role')">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>© Promet Hotelería</footer>
+<script src="app.js"></script>
+</body>
+</html>

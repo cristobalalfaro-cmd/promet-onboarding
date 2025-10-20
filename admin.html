@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin · Promet Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <img src="assets/logo_promet.png" alt="Promet" />
+  <h3>Admin</h3>
+</header>
+<div class="container">
+  <div class="grid cols-3">
+    <div class="kpi"><span class="muted">Módulos ejecutados</span><strong id="kpi_ejecutados">—</strong></div>
+    <div class="kpi"><span class="muted">Asistencia promedio</span><strong id="kpi_asistencia">—</strong></div>
+    <div class="kpi"><span class="muted">NPS general</span><strong id="kpi_nps">—</strong></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Filtros</h3>
+    <div class="grid cols-3">
+      <label>Hotel
+        <select id="f_hotel" class="input">
+          <option value="">Todos</option>
+          <option>Coya</option><option>Mejillones</option><option>Calama</option><option>Colbún</option><option>Fidelia</option><option>Engie</option>
+        </select>
+      </label>
+      <label>Estado
+        <select id="f_estado" class="input"><option value="">Todos</option><option>Planificado</option><option>En curso</option><option>Cerrado</option></select>
+      </label>
+      <div style="display:flex; align-items:end; gap:8px;">
+        <button class="btn">Aplicar</button>
+        <button class="btn ghost">Exportar CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Cohortes</h3>
+    <table>
+      <thead><tr><th>Cohorte</th><th>Hotel</th><th>Ingreso</th><th>Estado</th><th>Avance</th></tr></thead>
+      <tbody id="tbl_cohortes"><tr><td colspan="5">Conéctate al backend para ver datos</td></tr></tbody>
+    </table>
+  </div>
+</div>
+<footer>© Promet Hotelería</footer>
+<script src="app.js"></script>
+</body>
+</html>

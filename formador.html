@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formador · Promet Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <img src="assets/logo_promet.png" alt="Promet" />
+  <h3>Formador Interno</h3>
+</header>
+<div class="container">
+  <div class="card">
+    <h3>Módulos asignados</h3>
+    <table>
+      <thead><tr><th>Cohorte</th><th>Hotel</th><th>Ingreso</th><th>Día</th><th>Acción</th></tr></thead>
+      <tbody id="modulos_tbody"><tr><td colspan="5">Cargando…</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Tomar asistencia</h3>
+    <div id="asistencia_ctn">Selecciona un módulo</div>
+  </div>
+</div>
+<footer>© Promet Hotelería</footer>
+<script src="app.js"></script>
+<script>Promet.formadorLoadAssigned();</script>
+</body>
+</html>
