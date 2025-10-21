@@ -21,3 +21,18 @@ th, td { padding:10px; border-bottom:1px solid #e5e7eb; text-align:left; }
 .kpi { display:flex; flex-direction:column; gap:4px; padding:12px; border-radius:12px; border:1px solid #e5e7eb; background:#fff; }
 footer { padding:20px; text-align:center; color:#6b7280; }
 .hidden { display:none !important; }
+/* Cards por día con colores */
+.day-card { border:1px solid #e5e7eb; border-radius:14px; padding:14px; margin-top:12px; background:#fff; }
+.day-header { font-weight:700; margin-bottom:8px; }
+.day1 { border-left:6px solid #2563eb; }   /* azul */
+.day2 { border-left:6px solid #059669; }   /* verde */
+.day3 { border-left:6px solid #d97706; }   /* ámbar */
+.day3b{ border-left:6px solid #b45309; }   /* ámbar oscuro */
+.day4 { border-left:6px solid #dc2626; }   /* rojo */
+.day5 { border-left:6px solid #7c3aed; }   /* violeta */
+
+/* Zona de upload */
+.upload-box {
+  border:2px dashed #cbd5e1; border-radius:14px; padding:18px; text-align:center; background:#f8fafc; cursor:pointer;
+}
+.upload-box.drag { background:#eff6ff; border-color:#60a5fa; }
