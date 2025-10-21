@@ -19,20 +19,17 @@ function qa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); 
 function toast(msg){ alert(msg); }
 
 async function api(path, payload){
-  const res = await fetch(GAS_BASE_URL + path, {
+  // Enviamos la ruta en el cuerpo (_route) en vez de usar ?route=
+  const body = Object.assign({_route: path}, payload || {});
+  const res = await fetch(buildUrl(), {
     method: "POST",
-    headers: { "Content-Type":"application/json" },
-    body: JSON.stringify(payload || {})
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
   });
-  if(!res.ok) throw new Error("HTTP " + res.status);
+  if (!res.ok) throw new Error("HTTP " + res.status);
   const data = await res.json();
-  if(data.error) throw new Error(data.error);
+  if (data.error) throw new Error(data.error);
   return data;
-}
-
-function getTokenFromURL(){
-  const url = new URL(window.location.href);
-  return url.searchParams.get("token");
 }
 
 // === ESPACIO NAMESPACE ===
