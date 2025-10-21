@@ -54,10 +54,9 @@ async function handleLogin(form){
   });
 }
 
-// ---- EP: crear cohorte ----
-async function epCreateCohort(form){
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
+// ---- EP: crear cohorte (nueva versión con días y evaluador) ----
+async function epCreateCohort(bindButton){
+  bindButton.addEventListener('click', async ()=>{
     const payload = {
       token: getTokenFromURL(),
       cohort: {
@@ -66,21 +65,72 @@ async function epCreateCohort(form){
         ep_nombre: q('#ep_nombre').value,
         ep_email: q('#ep_email').value,
         relatores: [
-          { dia:1, modulo:'D1', relator_nombre:q('#relator1').value, relator_email:q('#relator1_mail').value },
-          { dia:2, modulo:'D2', relator_nombre:q('#relator2').value, relator_email:q('#relator2_mail').value },
-          { dia:3, modulo:'D3', relator_nombre:q('#relator3').value, relator_email:q('#relator3_mail').value },
-          { dia:4, modulo:'D4', relator_nombre:q('#relator4').value, relator_email:q('#relator4_mail').value }
+          { dia:1, modulo:'D1',   relator_nombre:q('#relator1').value,   relator_email:q('#relator1_mail').value },
+          { dia:2, modulo:'D2',   relator_nombre:q('#relator2').value,   relator_email:q('#relator2_mail').value },
+          { dia:3, modulo:'D3A',  relator_nombre:q('#relator3a').value,  relator_email:q('#relator3a_mail').value },
+          { dia:3, modulo:'D3B',  relator_nombre:q('#relator3b').value,  relator_email:q('#relator3b_mail').value },
+          { dia:4, modulo:'D4',   relator_nombre:q('#relator4').value,   relator_email:q('#relator4_mail').value },
+          { dia:5, modulo:'D5_EVAL', relator_nombre:q('#eval5').value,   relator_email:q('#eval5_mail').value }
         ]
       },
-      participants_csv: q('#participants_csv').value // one per line: nombre,apellido,cargo,telefono,email,requiere_mod4,rut,jefe_directo
+      // texto en el textarea (lo llenamos también al leer Excel)
+      participants_csv: q('#participants_csv').value
     };
+
+    // Validaciones mínimas
+    if(!payload.cohort.hotel || !payload.cohort.fecha_ingreso || !payload.cohort.ep_email){
+      return toast("Completa los Datos generales.");
+    }
+    if(!payload.participants_csv.trim()){
+      return toast("Debes cargar participantes (Excel o texto pegado).");
+    }
+
     try{
       const resp = await api("/cohorts/create", payload);
-      toast("Cohorte creado: " + resp.cohort_id);
+      toast("Proceso creado: " + resp.cohort_id);
       q('#cohort_id').textContent = resp.cohort_id;
-    }catch(err){ toast("Error al crear cohorte"); }
+    }catch(err){
+      console.error(err);
+      toast("Error al crear el proceso");
+    }
   });
 }
+// ---- EP: leer Excel .xlsx de participantes y volcar al textarea ----
+// Columnas esperadas (hoja 1): nombre, apellido, cargo, telefono, email, requiere_mod4 (SI/NO), rut, jefe_directo
+async function handleParticipantsXLSX(file){
+  try{
+    const data = await file.arrayBuffer();
+    const wb = XLSX.read(data, { type:'array' });
+    const sheetName = wb.SheetNames[0];
+    const ws = wb.Sheets[sheetName];
+    const json = XLSX.utils.sheet_to_json(ws, { defval:"" });
+
+    // Construye líneas CSV esperadas por el backend
+    const lines = json.map(row=>{
+      const nombre   = (row.nombre||"").toString().trim();
+      const apellido = (row.apellido||"").toString().trim();
+      const cargo    = (row.cargo||"").toString().trim();
+      const telefono = (row.telefono||"").toString().trim();
+      const email    = (row.email||"").toString().trim();
+      const req4     = (row.requiere_mod4||"NO").toString().trim().toUpperCase();
+      const rut      = (row.rut||"").toString().trim();
+      const jefe     = (row.jefe_directo||"").toString().trim();
+      return [nombre,apellido,cargo,telefono,email,req4,rut,jefe].join(",");
+    });
+
+    if(!lines.length){ return toast("El Excel no contiene filas válidas."); }
+    const ta = q('#participants_csv');
+    ta.value = lines.join("\n");
+    toast(`Participantes cargados: ${lines.length}`);
+  }catch(err){
+    console.error(err);
+    toast("No se pudo leer el Excel. Revisa columnas y formato.");
+  }
+}
+
+// expone en el namespace
+window.Promet.handleParticipantsXLSX = handleParticipantsXLSX;
+
 
 // ---- Formador: asistencia ----
 async function formadorLoadAssigned(){
