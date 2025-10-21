@@ -3,7 +3,7 @@
  * app.js (versión completa y actualizada)
  *****************************************************/
 
-// En vez de llamar directo al script.google.com
+// Usa un proxy CORS para hablar con Apps Script desde GitHub Pages
 const GAS_BASE_URL =
   "https://corsproxy.io/?" +
   encodeURIComponent("https://script.google.com/macros/s/AKfycbzinue2-0tTbsfiKeAstLrfVTROkdZMGUun9B33Ay7bJpjDB_gbSrLi0gfdLqpW5I45bQ/exec?route=");
