@@ -7,15 +7,19 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <img src="assets/logo_promet.png" alt="Promet Hotelería" />
-    <h3>Onboarding & Inducción</h3>
+  <!-- Header -->
+  <header style="display:flex;align-items:center;gap:10px;">
+    <img src="assets/logo_promet.png" alt="Promet Hotelería" style="height:60px;" />
+    <h2>Onboarding &amp; Inducción</h2>
   </header>
 
-  <div class="container">
-    <div class="card">
-      <h2>Ingresar</h2>
-      <div class="grid cols-3">
+  <!-- Contenedor principal -->
+  <div class="container" style="max-width:800px;">
+    <div class="card" style="text-align:center;">
+      <h2>Acceso al Sistema</h2>
+      <p>Selecciona tu rol e ingresa la clave correspondiente.</p>
+
+      <div class="grid cols-3" style="align-items:end; margin-top:20px;">
         <label>Rol
           <select id="sel_role" class="input" required>
             <option value="ADMIN">Administrador</option>
@@ -26,23 +30,27 @@
           </select>
         </label>
         <label>Clave
-          <input id="passcode" type="password" class="input" placeholder="ingresa tu clave" required />
+          <input id="passcode" type="password" class="input" placeholder="Ingresa tu clave" required />
         </label>
-        <div style="display:flex; align-items:end;">
+        <div style="display:flex;align-items:end;justify-content:center;">
           <button class="btn" id="btnLogin">Ingresar</button>
         </div>
       </div>
-      <small class="muted">Si olvidaste tu clave de rol, contacta al Administrador.</small>
+
+      <small class="muted">Si olvidaste tu clave, contacta al Administrador.</small>
     </div>
   </div>
 
   <footer>© Promet Hotelería</footer>
+
   <script src="app.js"></script>
   <script>
+    // Evento de login
     document.getElementById('btnLogin').addEventListener('click', async ()=>{
       const role = document.getElementById('sel_role').value;
       const pass = document.getElementById('passcode').value.trim();
-      if(!pass) return alert("Ingresa la clave del rol");
+      if(!pass) return alert("Por favor ingresa la clave de tu rol.");
+
       try{
         const resp = await api("/auth/login", { role, passcode: pass });
         const token = resp.token;
@@ -53,13 +61,18 @@
           "CHAMPION":"champion.html",
           "PARTICIPANTE":"participante.html"
         }[role];
-        if(!page) return alert("Rol sin página asignada");
+        if(!page) return alert("Rol sin página asignada.");
+
+        // Redirección con token
         window.location.href = page + "?token=" + encodeURIComponent(token);
       }catch(e){
-        alert("Clave incorrecta o rol deshabilitado");
+        console.error(e);
+        alert("Clave incorrecta o rol deshabilitado.");
       }
     });
   </script>
 </body>
+</html>
+
 </html>
 
