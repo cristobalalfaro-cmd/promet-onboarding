@@ -1,3 +1,22 @@
+// URL fija de tu Apps Script (¡con ?route= al final!)
+const GAS_BASE_URL = "https://script.google.com/macros/s/AKfycbzinue2-0tTbsfiKeAstLrfVTROkdZMGUun9B33Ay7bJpjDB_gbSrLi0gfdLqpW5I45bQ/exec?route=";
+
+// Utils
+function q(sel, root=document){ return root.querySelector(sel); }
+function qa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
+function toast(msg){ alert(msg); }
+
+async function api(path, payload){
+  const res = await fetch(GAS_BASE_URL + path, {
+    method: "POST",
+    headers: { "Content-Type":"application/json" },
+    body: JSON.stringify(payload || {})
+  });
+  if(!res.ok) throw new Error("HTTP " + res.status);
+  const data = await res.json();
+  if(data.error) throw new Error(data.error);
+  return data;
+}
 
 // Minimal frontend to interact with Google Apps Script backend.
 // Set this after you deploy the Web App in Google Apps Script:
