@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,19 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Encargado de Personas · Promet Onboarding</title>
   <link rel="stylesheet" href="styles.css" />
+  <!-- SheetJS para leer Excel de Participantes -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 <header>
   <img src="assets/logo_promet.png" alt="Promet" />
   <h3>Encargado de Personas</h3>
 </header>
+
 <div class="container">
+  <!-- Sección 1: Datos generales -->
   <div class="card">
-    <h3>Crear cohorte</h3>
+    <h3>Datos generales</h3>
     <form id="epCreate" class="grid cols-3">
       <label>Hotel
         <select id="hotel" class="input" required>
-          <option>Coya</option><option>Mejillones</option><option>Calama</option><option>Colbún</option><option>Fidelia</option><option>Engie</option>
+          <option>Coya</option><option>Mejillones</option><option>Calama</option>
+          <option>Colbún</option><option>Fidelia</option><option>Engie</option>
         </select>
       </label>
       <label>Fecha de ingreso
@@ -30,43 +34,137 @@
       <label>EP Correo
         <input id="ep_email" type="email" class="input" required />
       </label>
-      <label>Relator Día 1
-        <input id="relator1" class="input" required placeholder="Nombre" />
-      </label>
-      <label>Correo Relator Día 1
-        <input id="relator1_mail" type="email" class="input" required />
-      </label>
-      <label>Relator Día 2
-        <input id="relator2" class="input" required />
-      </label>
-      <label>Correo Relator Día 2
-        <input id="relator2_mail" type="email" class="input" required />
-      </label>
-      <label>Relator Día 3
-        <input id="relator3" class="input" required />
-      </label>
-      <label>Correo Relator Día 3
-        <input id="relator3_mail" type="email" class="input" required />
-      </label>
-      <label>Relator Día 4 (Mucama/Aux. Aseo)
-        <input id="relator4" class="input" />
-      </label>
-      <label>Correo Relator Día 4
-        <input id="relator4_mail" type="email" class="input" />
-      </label>
-      <label style="grid-column:1/-1;">Participantes (CSV; una persona por línea):<br>
+    </form>
+  </div>
+
+  <!-- Sección 2: Programación de la semana -->
+  <div class="card" style="margin-top:16px;">
+    <h3>Programación de la semana de inducción</h3>
+
+    <!-- Día 1 -->
+    <div class="day-card day1">
+      <div class="day-header">Día 1 · Inducción General (9:00 a 11:00)</div>
+      <div class="grid cols-3">
+        <label>Relator Día 1
+          <input id="relator1" class="input" required placeholder="Nombre" />
+        </label>
+        <label>Correo Relator Día 1
+          <input id="relator1_mail" type="email" class="input" required />
+        </label>
+      </div>
+    </div>
+
+    <!-- Día 2 -->
+    <div class="day-card day2">
+      <div class="day-header">Día 2 · Inducción Hotel (9:00 a 11:00)</div>
+      <div class="grid cols-3">
+        <label>Relator Día 2
+          <input id="relator2" class="input" required placeholder="Nombre" />
+        </label>
+        <label>Correo Relator Día 2
+          <input id="relator2_mail" type="email" class="input" required />
+        </label>
+      </div>
+    </div>
+
+    <!-- Día 3 (dividido en 2 bloques) -->
+    <div class="day-card day3">
+      <div class="day-header">Día 3 · Cultura de Servicio (9:00 a 10:00)</div>
+      <div class="grid cols-3">
+        <label>Relator Día 3 · Cultura de Servicio
+          <input id="relator3a" class="input" required placeholder="Nombre" />
+        </label>
+        <label>Correo Relator Día 3 · Cultura de Servicio
+          <input id="relator3a_mail" type="email" class="input" required />
+        </label>
+      </div>
+    </div>
+
+    <div class="day-card day3b">
+      <div class="day-header">Día 3 · Prevención de Riesgos (10:00 a 11:00)</div>
+      <div class="grid cols-3">
+        <label>Relator Día 3 · Prevención de Riesgos
+          <input id="relator3b" class="input" required placeholder="Nombre" />
+        </label>
+        <label>Correo Relator Día 3 · Prevención de Riesgos
+          <input id="relator3b_mail" type="email" class="input" required />
+        </label>
+      </div>
+    </div>
+
+    <!-- Día 4 (solo Mucama/Aux. Aseo) -->
+    <div class="day-card day4">
+      <div class="day-header">Día 4 · Funciones y Competencias Aux. Aseo (9:00 a 11:00)</div>
+      <div class="grid cols-3">
+        <label>Relator Día 4
+          <input id="relator4" class="input" placeholder="Nombre" />
+        </label>
+        <label>Correo Relator Día 4
+          <input id="relator4_mail" type="email" class="input" />
+        </label>
+      </div>
+    </div>
+
+    <!-- Día 5 Evaluador -->
+    <div class="day-card day5">
+      <div class="day-header">Día 5 · Evaluación de Contenidos + Encuesta General</div>
+      <div class="grid cols-3">
+        <label>Evaluador Día 5 (Nombre)
+          <input id="eval5" class="input" required placeholder="Nombre" />
+        </label>
+        <label>Correo Evaluador Día 5
+          <input id="eval5_mail" type="email" class="input" required />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 3: Participantes -->
+  <div class="card" style="margin-top:16px;">
+    <h3>Ingresar nuevo proceso de Onboarding</h3>
+    <p><strong>Participantes</strong> — Puedes:
+      <br>• Arrastrar un <b>Excel</b> con las columnas correctas
+      <br>• o pegar en el cuadro (una persona por línea).
+    </p>
+
+    <div class="upload-box" id="dropZone">
+      Arrastra aquí el Excel de participantes (.xlsx) o haz click para seleccionar.
+      <input id="participants_file" type="file" accept=".xlsx" hidden />
+    </div>
+
+    <div class="grid cols-1" style="margin-top:10px;">
+      <label style="grid-column:1/-1;">Participantes (texto pegado; una persona por línea):<br>
         <small>Formato: nombre,apellido,cargo,telefono,email,requiere_mod4(SI/NO),rut,jefe_directo</small>
         <textarea id="participants_csv" class="input" rows="6" required></textarea>
       </label>
-      <div style="grid-column:1/-1; display:flex; gap:8px; align-items:center;">
-        <button class="btn" type="submit">Crear cohorte</button>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn" id="btnCrear" type="button">Crear proceso</button>
         <span>Cohorte ID: <strong id="cohort_id">—</strong></span>
+        <a class="btn ghost" href="assets/Participantes_Template.xlsx" download>Descargar template Excel</a>
       </div>
-    </form>
+    </div>
   </div>
 </div>
+
 <footer>© Promet Hotelería</footer>
 <script src="app.js"></script>
-<script>Promet.epCreateCohort(document.getElementById('epCreate'));</script>
+<script>
+  // Bind acciones EP
+  Promet.epCreateCohort(document.getElementById('btnCrear'));
+
+  // Zona de drag & drop Excel
+  const drop = document.getElementById('dropZone');
+  const fileInput = document.getElementById('participants_file');
+  drop.addEventListener('click', ()=> fileInput.click());
+  drop.addEventListener('dragover', e=>{ e.preventDefault(); drop.classList.add('drag'); });
+  drop.addEventListener('dragleave', ()=> drop.classList.remove('drag'));
+  drop.addEventListener('drop', async e=>{
+    e.preventDefault(); drop.classList.remove('drag');
+    if(e.dataTransfer.files && e.dataTransfer.files[0]) Promet.handleParticipantsXLSX(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e=>{
+    if (e.target.files && e.target.files[0]) Promet.handleParticipantsXLSX(e.target.files[0]);
+  });
+</script>
 </body>
 </html>
