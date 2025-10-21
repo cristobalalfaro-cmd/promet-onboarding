@@ -3,11 +3,16 @@
  * app.js (versión completa y actualizada)
  *****************************************************/
 
-// Usa un proxy CORS para hablar con Apps Script desde GitHub Pages
-const GAS_BASE_URL =
-  "https://corsproxy.io/?" +
-  encodeURIComponent("https://script.google.com/macros/s/AKfycbzinue2-0tTbsfiKeAstLrfVTROkdZMGUun9B33Ay7bJpjDB_gbSrLi0gfdLqpW5I45bQ/exec?route=");
+// URL del Web App (termina en /exec, SIN ?route=)
+const GAS_EXEC_URL = "https://script.google.com/macros/s/AKfycbzinue2-0tTbsfiKeAstLrfVTROkdZMGUun9B33Ay7bJpjDB_gbSrLi0gfdLqpW5I45bQ/exec";
 
+// Usa proxy CORS para evitar el bloqueo del navegador (puedes quitarlo luego)
+const USE_PROXY = true;
+function buildUrl(){
+  return USE_PROXY
+    ? "https://corsproxy.io/?" + encodeURIComponent(GAS_EXEC_URL)
+    : GAS_EXEC_URL;
+}
 // === UTILIDADES GENERALES ===
 function q(sel, root=document){ return root.querySelector(sel); }
 function qa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
