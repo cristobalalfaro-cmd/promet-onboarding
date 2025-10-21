@@ -3,8 +3,10 @@
  * app.js (versión completa y actualizada)
  *****************************************************/
 
-// === CONFIGURACIÓN BASE ===
-const GAS_BASE_URL = "https://script.google.com/macros/s/AKfycbzinue2-0tTbsfiKeAstLrfVTROkdZMGUun9B33Ay7bJpjDB_gbSrLi0gfdLqpW5I45bQ/exec?route=";
+// En vez de llamar directo al script.google.com
+const GAS_BASE_URL =
+  "https://corsproxy.io/?" +
+  encodeURIComponent("https://script.google.com/macros/s/AKfycbzinue2-0tTbsfiKeAstLrfVTROkdZMGUun9B33Ay7bJpjDB_gbSrLi0gfdLqpW5I45bQ/exec?route=");
 
 // === UTILIDADES GENERALES ===
 function q(sel, root=document){ return root.querySelector(sel); }
